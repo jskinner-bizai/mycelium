@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>mycelium data flow</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; background: #070b14; color: #e2e8f0; font-family: ui-monospace, monospace; padding: 24px; }
+    h1 { font-weight: 300; font-size: 18px; margin: 0 0 16px; letter-spacing: 0.04em; }
+    #feed { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 8px 16px; font-size: 12px; max-width: 720px; }
+    .ts { color: #475569; }
+    .topic { color: #38bdf8; }
+    .payload { color: #94a3b8; white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+  </style>
+</head>
+<body>
+  <h1>data flow — sample trace</h1>
+  <div id="feed"></div>
+
+  <script>
+    const samples = [
+      { topic: 'motion:detected',      payload: { camera: 'front-door' } },
+      { topic: 'vision:face-recognized', payload: { person: 'jordan' } },
+      { topic: 'brain:intent',         payload: { action: 'unlock' } },
+      { topic: 'autonomic:lock-state', payload: { door: 'front', state: 'unlocked' } },
+      { topic: 'light:turn-on',        payload: { room: 'entry' } },
+      { topic: 'presence:arrived',     payload: { who: 'jordan' } },
+      { topic: 'brain:reflection',     payload: { note: 'logged entry event' } },
+      { topic: 'supervisor:restarted', payload: { name: 'frigate', delayMs: 1000 } },
+    ];
+
+    const feed = document.getElementById('feed');
+
+    function fmt(obj) {
+      return JSON.stringify(obj);
+    }
+
+    function pad(n) { return n.toString().padStart(2, '0'); }
+    function nowStr() {
+      const d = new Date();
+      return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    }
+
+    let i = 0;
+    function tick() {
+      const s = samples[i % samples.length];
+      i++;
+      const row = document.createElement('div');
+      row.style.display = 'contents';
+      row.innerHTML =
+        '<div class="ts">' + nowStr() + '</div>' +
+        '<div class="topic">' + s.topic + '</div>' +
+        '<div class="payload">' + fmt(s.payload) + '</div>';
+      feed.prepend(...row.children);
+      while (feed.children.length > 24) feed.lastChild.remove();
+    }
+
+    setInterval(tick, 900);
+    tick();
+  </script>
+</body>
+</html>
