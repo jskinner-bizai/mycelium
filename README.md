@@ -27,9 +27,11 @@ mycelium is an opinionated pattern for building the organism: a durable event bu
 - **`README.md`** — this manifesto.
 - **`docs/philosophy.md`** — the long version.
 - **`docs/architecture.md`** — which real components map to which organs.
+- **`docs/brain.md`** — the brain contract: what goes in the reasoning slot.
 - **`docs/diagrams/organism.html`** — an animated diagram of the organism in motion.
 - **`packages/mesh-core/`** — the working substrate. Event bus, supervisor, adapter pattern. Apache-2.0. TypeScript. `pnpm add @mycelium/core`.
-- **`docs/recipes/`** — concrete deployments on top of mesh-core (rolling in).
+- **`packages/mesh-brain/`** — the reasoning organ: `Brain` contract + `SimpleBrain` + `attachBrain`. Provider-agnostic — plug in Claude, OpenAI, Ollama, LiteLLM, or a private service.
+- **`docs/recipes/`** — concrete deployments. Start with [`starter/`](docs/recipes/starter) (no hardware) or [`homelab-nuc/`](docs/recipes/homelab-nuc) (full single-host organism).
 
 ## The minimum viable organism
 

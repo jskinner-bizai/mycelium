@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="ui-monospace, monospace">
+  <rect width="1000" height="600" fill="#070b14"/>
+
+  <!-- Host box -->
+  <rect x="40" y="40" width="920" height="520" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="4 4" rx="12"/>
+  <text x="60" y="68" fill="#64748b" font-size="11" letter-spacing="2">SINGLE HOST · HYPERVISOR</text>
+
+  <!-- Spinal cord (bus) core -->
+  <g stroke="#1f2937" stroke-width="1" opacity="0.55">
+    <line x1="180" y1="180" x2="500" y2="320"/>
+    <line x1="180" y1="420" x2="500" y2="320"/>
+    <line x1="820" y1="180" x2="500" y2="320"/>
+    <line x1="820" y1="420" x2="500" y2="320"/>
+    <line x1="500" y1="130" x2="500" y2="320"/>
+    <line x1="500" y1="510" x2="500" y2="320"/>
+  </g>
+
+  <!-- Organs: circle + label + reference impl -->
+  <g font-size="11" text-anchor="middle">
+    <!-- brain -->
+    <circle cx="500" cy="130" r="34" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="500" cy="130" r="8" fill="#a855f7"/>
+    <text x="500" y="180" fill="#cbd5e1">brain</text>
+    <text x="500" y="198" fill="#64748b" font-size="10">@mycelium/brain + your LLM</text>
+
+    <!-- spinal cord -->
+    <circle cx="500" cy="320" r="34" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="500" cy="320" r="8" fill="#38bdf8"/>
+    <text x="500" y="370" fill="#cbd5e1">spinal cord</text>
+    <text x="500" y="388" fill="#64748b" font-size="10">Mosquitto · @mycelium/core</text>
+
+    <!-- eyes -->
+    <circle cx="180" cy="180" r="34" fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="180" cy="180" r="8" fill="#22c55e"/>
+    <text x="180" y="230" fill="#cbd5e1">eyes</text>
+    <text x="180" y="248" fill="#64748b" font-size="10">Frigate + cameras</text>
+
+    <!-- senses -->
+    <circle cx="180" cy="420" r="34" fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="180" cy="420" r="8" fill="#22c55e"/>
+    <text x="180" y="470" fill="#cbd5e1">senses</text>
+    <text x="180" y="488" fill="#64748b" font-size="10">calendar · health · ambient</text>
+
+    <!-- autonomic -->
+    <circle cx="820" cy="180" r="34" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="820" cy="180" r="8" fill="#f59e0b"/>
+    <text x="820" y="230" fill="#cbd5e1">autonomic NS</text>
+    <text x="820" y="248" fill="#64748b" font-size="10">Home Assistant</text>
+
+    <!-- skin -->
+    <circle cx="820" cy="420" r="34" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="820" cy="420" r="8" fill="#f59e0b"/>
+    <text x="820" y="470" fill="#cbd5e1">skin</text>
+    <text x="820" y="488" fill="#64748b" font-size="10">kiosk dashboard · daily briefing</text>
+
+    <!-- immune -->
+    <circle cx="500" cy="510" r="34" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="500" cy="510" r="8" fill="#ef4444"/>
+    <text x="500" y="560" fill="#cbd5e1">immune system</text>
+    <text x="500" y="578" fill="#64748b" font-size="10">supervisor · anomaly · cost watchers</text>
+  </g>
+
+  <!-- Legend -->
+  <g font-size="10" fill="#64748b">
+    <circle cx="62" cy="84" r="4" fill="#22c55e"/>
+    <text x="74" y="88">sense</text>
+    <circle cx="122" cy="84" r="4" fill="#a855f7"/>
+    <text x="134" y="88">brain</text>
+    <circle cx="178" cy="84" r="4" fill="#38bdf8"/>
+    <text x="190" y="88">substrate</text>
+    <circle cx="250" cy="84" r="4" fill="#f59e0b"/>
+    <text x="262" y="88">muscle / limb</text>
+    <circle cx="342" cy="84" r="4" fill="#ef4444"/>
+    <text x="354" y="88">immune</text>
+  </g>
+</svg>

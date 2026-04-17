@@ -6,7 +6,7 @@ A concrete mapping of organs to implementations. Nothing here is required — if
 
 | Organ | Role | Reference implementation | Talks to the bus via |
 |---|---|---|---|
-| **Brain** | central intelligence, memory, intent | any LLM-backed service of your choice | HttpAdapter (webhook) or MqttAdapter |
+| **Brain** | central intelligence, memory, intent | any LLM via [`@mycelium/brain`](../packages/mesh-brain/README.md) · [contract](brain.md) | HttpAdapter (webhook) or MqttAdapter |
 | **Skeleton + muscles** | agent execution, tool use | any agent runtime / gateway | MqttAdapter |
 | **Autonomic nervous system** | reflex device control | Home Assistant (or equivalent) | MqttAdapter |
 | **Eyes** | vision AI, detection, recognition | Frigate (or equivalent) | MQTT (Frigate publishes natively) |

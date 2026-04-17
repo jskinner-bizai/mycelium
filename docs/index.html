@@ -167,12 +167,21 @@ await sup.start();</code></pre>
       <a href="https://github.com/jskinner-bizai/mycelium#readme">The manifesto</a> ·
       <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/philosophy.md">The philosophy</a> ·
       <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/architecture.md">The architecture</a> ·
+      <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/brain.md">The brain contract</a> ·
       <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/glossary.md">The glossary</a>
     </p>
 
     <h2>Run it</h2>
-    <p>The substrate ships as a TypeScript package: <code>@mycelium/core</code> — event bus, supervisor, adapter primitives. Apache-2.0.</p>
-    <p>Try the <a href="https://github.com/jskinner-bizai/mycelium/tree/main/docs/recipes/starter">starter recipe</a> — a runnable minimum-viable organism with no hardware required.</p>
+    <p>Two TypeScript packages under Apache-2.0:</p>
+    <ul>
+      <li><code>@mycelium/core</code> — the substrate. Event bus, supervisor, adapter primitives.</li>
+      <li><code>@mycelium/brain</code> — the reasoning organ. Provider-agnostic — bring any LLM.</li>
+    </ul>
+    <p>Two recipes to start from:</p>
+    <ul>
+      <li><a href="https://github.com/jskinner-bizai/mycelium/tree/main/docs/recipes/starter">starter</a> — minimum-viable organism, no hardware required</li>
+      <li><a href="https://github.com/jskinner-bizai/mycelium/tree/main/docs/recipes/homelab-nuc">homelab-nuc</a> — full single-host organism with eyes, brain, autonomic NS, immune system, skin</li>
+    </ul>
   </main>
 
   <footer>
