@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>mycelium organism</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      background: #070b14;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+    }
+    h1 { font-weight: 300; letter-spacing: 0.04em; margin: 0 0 4px; }
+    p.sub { color: #64748b; margin: 0 0 32px; font-size: 13px; letter-spacing: 0.02em; }
+    svg { max-width: 900px; width: 100%; height: auto; }
+    .organ-label { font-size: 11px; fill: #94a3b8; font-family: ui-monospace, monospace; }
+    .organ-ring { fill: none; stroke-width: 1.5; opacity: 0.4; }
+    .organ-core { stroke-width: 0; }
+    .edge { fill: none; stroke: #1f2937; stroke-width: 1; opacity: 0.5; }
+    .pulse { fill: #38bdf8; }
+    .tooltip {
+      position: fixed;
+      pointer-events: none;
+      padding: 6px 10px;
+      background: #0f1729;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      font-size: 11px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      max-width: 240px;
+      line-height: 1.5;
+    }
+    .tooltip.on { opacity: 1; }
+    .legend {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .legend span.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  </style>
+</head>
+<body>
+  <h1>mycelium</h1>
+  <p class="sub">hover an organ · pulses trace live event paths</p>
+  <div id="tip" class="tooltip"></div>
+
+  <svg viewBox="0 0 900 560" id="svg">
+    <g id="edges"></g>
+    <g id="organs"></g>
+    <g id="pulses"></g>
+  </svg>
+
+  <div class="legend">
+    <span><span class="dot" style="background:#38bdf8"></span>event pulse</span>
+    <span><span class="dot" style="background:#22c55e"></span>sense</span>
+    <span><span class="dot" style="background:#a855f7"></span>brain</span>
+    <span><span class="dot" style="background:#f59e0b"></span>muscle / limb</span>
+    <span><span class="dot" style="background:#ef4444"></span>immune system</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+  <script>
+    const organs = [
+      { id: 'brain',    x: 450, y: 80,  color: '#a855f7', label: 'brain',           desc: 'intelligence + memory. LLM-backed. Holds intent.' },
+      { id: 'spinal',   x: 450, y: 280, color: '#38bdf8', label: 'spinal cord',     desc: 'the bus. every event passes through here.' },
+      { id: 'eyes',     x: 160, y: 160, color: '#22c55e', label: 'eyes',            desc: 'vision AI (Frigate or equivalent). publishes motion, faces, plates.' },
+      { id: 'senses',   x: 160, y: 360, color: '#22c55e', label: 'senses',          desc: 'ingesters: health, calendar, ambient. publishes ticks.' },
+      { id: 'autonomic',x: 740, y: 160, color: '#f59e0b', label: 'autonomic NS',    desc: 'home automation. reflex device control.' },
+      { id: 'muscles',  x: 740, y: 360, color: '#f59e0b', label: 'muscles + limbs', desc: 'agent execution. external-tool adapters.' },
+      { id: 'immune',   x: 450, y: 480, color: '#ef4444', label: 'immune system',   desc: 'supervisor + security watchers. investigates and responds.' },
+    ];
+
+    const edges = [
+      ['eyes', 'spinal'], ['senses', 'spinal'],
+      ['spinal', 'autonomic'], ['spinal', 'muscles'],
+      ['brain', 'spinal'], ['spinal', 'brain'],
+      ['immune', 'spinal'], ['spinal', 'immune'],
+    ];
+
+    const svg = document.getElementById('svg');
+    const gEdges = document.getElementById('edges');
+    const gOrgans = document.getElementById('organs');
+    const gPulses = document.getElementById('pulses');
+    const tip = document.getElementById('tip');
+    const byId = Object.fromEntries(organs.map(o => [o.id, o]));
+
+    function el(tag, attrs = {}) {
+      const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+      return e;
+    }
+
+    for (const [a, b] of edges) {
+      const A = byId[a], B = byId[b];
+      gEdges.appendChild(el('line', {
+        x1: A.x, y1: A.y, x2: B.x, y2: B.y, class: 'edge',
+      }));
+    }
+
+    for (const o of organs) {
+      const g = el('g');
+      g.appendChild(el('circle', { cx: o.x, cy: o.y, r: 32, class: 'organ-ring', stroke: o.color }));
+      g.appendChild(el('circle', { cx: o.x, cy: o.y, r: 8,  class: 'organ-core', fill: o.color }));
+      const label = el('text', {
+        x: o.x, y: o.y + 52, 'text-anchor': 'middle', class: 'organ-label',
+      });
+      label.textContent = o.label;
+      g.appendChild(label);
+      g.addEventListener('mouseenter', (e) => {
+        tip.textContent = o.desc;
+        tip.classList.add('on');
+      });
+      g.addEventListener('mousemove', (e) => {
+        tip.style.left = (e.clientX + 14) + 'px';
+        tip.style.top  = (e.clientY + 14) + 'px';
+      });
+      g.addEventListener('mouseleave', () => tip.classList.remove('on'));
+      gOrgans.appendChild(g);
+    }
+
+    function pulse(fromId, toId, color = '#38bdf8', durationMs = 900) {
+      const A = byId[fromId], B = byId[toId];
+      const dot = el('circle', { cx: A.x, cy: A.y, r: 4, class: 'pulse', fill: color });
+      gPulses.appendChild(dot);
+      anime({
+        targets: dot,
+        cx: B.x,
+        cy: B.y,
+        duration: durationMs,
+        easing: 'easeInOutCubic',
+        complete: () => dot.remove(),
+      });
+    }
+
+    const paths = [
+      ['eyes', 'spinal', 'brain'],
+      ['eyes', 'spinal', 'autonomic'],
+      ['senses', 'spinal', 'brain'],
+      ['brain', 'spinal', 'muscles'],
+      ['immune', 'spinal', 'autonomic'],
+      ['autonomic', 'spinal', 'brain'],
+    ];
+
+    function fire() {
+      const p = paths[Math.floor(Math.random() * paths.length)];
+      for (let i = 0; i < p.length - 1; i++) {
+        setTimeout(() => pulse(p[i], p[i + 1]), i * 450);
+      }
+    }
+
+    setInterval(fire, 650);
+    fire();
+  </script>
+</body>
+</html>
