@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mycelium — a personal OS is an organism, not a toolkit</title>
+  <meta name="description" content="An opinionated pattern for building a personal operating system as an organism: event bus as spinal cord, supervised agents as muscles, pluggable adapters as limbs." />
+  <meta property="og:title" content="mycelium" />
+  <meta property="og:description" content="A personal operating system isn't a toolkit. It's an organism." />
+  <meta property="og:url" content="https://jskinner-bizai.github.io/mycelium/" />
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #070b14;
+      color: #e2e8f0;
+      font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+      line-height: 1.6;
+    }
+    header, main, footer { max-width: 920px; margin: 0 auto; padding: 24px; }
+    h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      font-size: 56px;
+      letter-spacing: -0.01em;
+      margin: 12px 0 8px;
+      background: linear-gradient(120deg, #38bdf8, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    h2 { font-weight: 500; margin-top: 48px; color: #f1f5f9; }
+    h3 { font-weight: 600; color: #cbd5e1; margin-bottom: 4px; }
+    p.sub { color: #94a3b8; font-size: 17px; margin: 0 0 32px; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: #1f2937; padding: 1px 6px; border-radius: 4px; font-size: 13px; color: #e2e8f0; }
+    pre {
+      background: #0f1729;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 18px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .hero {
+      background: linear-gradient(180deg, rgba(56,189,248,0.05), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .diagram-frame {
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 32px 0 16px;
+      background: #070b14;
+    }
+    .diagram-frame iframe { display: block; width: 100%; height: 680px; border: 0; }
+    .promises {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      margin: 20px 0;
+    }
+    .promise {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .promise .label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .promise h3 { margin: 0 0 6px; font-size: 16px; }
+    .promise p { margin: 0; font-size: 14px; color: #94a3b8; }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: #38bdf8;
+      color: #070b14;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-right: 8px;
+    }
+    .cta.ghost {
+      background: transparent;
+      border: 1px solid #334155;
+      color: #e2e8f0;
+    }
+    .cta:hover { text-decoration: none; filter: brightness(1.1); }
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      margin-top: 64px;
+      color: #64748b;
+      font-size: 13px;
+    }
+    footer a { color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <p style="color:#64748b; margin:0; font-size:12px; letter-spacing:0.18em; text-transform:uppercase;">mycelium · v0.1</p>
+    <h1>A personal operating system isn't a toolkit.<br />It's an organism.</h1>
+    <p class="sub">An opinionated pattern for growing the organism: event bus as spinal cord, supervised agents as muscles, pluggable adapters as limbs, and four promises that make the whole thing worth running.</p>
+    <a class="cta" href="https://github.com/jskinner-bizai/mycelium">View on GitHub →</a>
+    <a class="cta ghost" href="#diagram">See it move ↓</a>
+  </header>
+
+  <main>
+    <div id="diagram" class="diagram-frame">
+      <iframe src="diagrams/organism.html" title="mycelium organism — live view" loading="lazy"></iframe>
+    </div>
+    <p style="text-align:center; color:#64748b; font-size:12px; margin:0 0 48px;">Pulses trace live event paths · hover an organ for its role</p>
+
+    <h2>The four promises</h2>
+    <div class="promises">
+      <div class="promise">
+        <div class="label">01</div>
+        <h3>Bi-directional</h3>
+        <p>Every limb informs the brain; the brain can move every limb. One bus. No sensor side, no actuation side.</p>
+      </div>
+      <div class="promise">
+        <div class="label">02</div>
+        <h3>Self-defending</h3>
+        <p>Anomalies and failed health-checks fire real events. A watchdog subscribes, investigates, responds — without a human tap.</p>
+      </div>
+      <div class="promise">
+        <div class="label">03</div>
+        <h3>Self-healing</h3>
+        <p>Every long-running process is supervised. Crashes back off and restart. Cloud failures queue locally. The mesh degrades, it doesn't collapse.</p>
+      </div>
+      <div class="promise">
+        <div class="label">04</div>
+        <h3>Self-improving</h3>
+        <p>Agents can write code that extends the organism. New adapter, new reflex, new memory — proposed, reviewed, committed, redeployed. The organism grows.</p>
+      </div>
+    </div>
+
+    <h2>The minimum viable organism</h2>
+    <pre><code>import { Bus, Supervisor, MqttAdapter } from '@mycelium/core';
+
+const bus = new Bus({
+  adapter: new MqttAdapter({ url: 'mqtt://localhost:1883' }),
+  logPath: './events.db',
+});
+await bus.connect();
+
+bus.on('motion:detected', async (evt) =&gt; {
+  await bus.publish('light:turn-on', { room: evt.room });
+});
+
+const sup = new Supervisor();
+sup.register({ name: 'frigate', run: async () =&gt; { /* camera pipeline */ } });
+sup.register({ name: 'brain',   run: async () =&gt; { /* llm loop */ } });
+await sup.start();</code></pre>
+
+    <h2>Read it</h2>
+    <p>
+      <a href="https://github.com/jskinner-bizai/mycelium#readme">The manifesto</a> ·
+      <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/philosophy.md">The philosophy</a> ·
+      <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/architecture.md">The architecture</a> ·
+      <a href="https://github.com/jskinner-bizai/mycelium/blob/main/docs/glossary.md">The glossary</a>
+    </p>
+
+    <h2>Run it</h2>
+    <p>The substrate ships as a TypeScript package: <code>@mycelium/core</code> — event bus, supervisor, adapter primitives. Apache-2.0.</p>
+    <p>Try the <a href="https://github.com/jskinner-bizai/mycelium/tree/main/docs/recipes/starter">starter recipe</a> — a runnable minimum-viable organism with no hardware required.</p>
+  </main>
+
+  <footer>
+    <p>
+      <a href="https://github.com/jskinner-bizai/mycelium">GitHub</a> ·
+      <a href="https://github.com/jskinner-bizai/mycelium/blob/main/CONTRIBUTING.md">Contribute</a> ·
+      <a href="https://github.com/jskinner-bizai/mycelium/blob/main/LICENSE">Apache-2.0</a>
+    </p>
+  </footer>
+</body>
+</html>
