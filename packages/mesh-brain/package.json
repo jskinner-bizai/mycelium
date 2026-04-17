@@ -1,0 +1,22 @@
+{
+  "name": "@mycelium/brain",
+  "version": "0.1.0",
+  "description": "Brain abstraction for mycelium organisms — plug in any LLM.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": { ".": "./dist/index.js" },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@mycelium/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "20.16.10",
+    "vitest": "2.1.2"
+  }
+}
