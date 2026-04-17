@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Test output
+coverage/
+.vitest-cache/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local env
+.env
+.env.local
+*.local
+
+# Brainstorming / session artifacts
+.superpowers/
+
+# Event log
+events.db
+events.db-journal
