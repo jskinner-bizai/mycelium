@@ -1,9 +1,9 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { Bus } from '../src/bus.js';
-import { NoopAdapter } from '../src/adapters/noop.js';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { NoopAdapter } from '../src/adapters/noop.js';
+import { Bus } from '../src/bus.js';
 
 describe('Bus (no persistence)', () => {
   it('routes publish → on for same topic', async () => {

@@ -43,7 +43,7 @@ export class MqttAdapter implements Adapter {
 
   async disconnect(): Promise<void> {
     if (!this.client) return;
-    await new Promise<void>((resolve) => this.client!.end(false, {}, () => resolve()));
+    await new Promise<void>((resolve) => this.client?.end(false, {}, () => resolve()));
     this.client = null;
     this.handlers.clear();
   }
@@ -59,7 +59,7 @@ export class MqttAdapter implements Adapter {
   async publish(topic: string, payload: unknown): Promise<void> {
     if (!this.client) throw new Error('MqttAdapter: publish before connect');
     return new Promise((resolve, reject) => {
-      this.client!.publish(topic, JSON.stringify(payload), (err) => {
+      this.client?.publish(topic, JSON.stringify(payload), (err) => {
         if (err) reject(err);
         else resolve();
       });

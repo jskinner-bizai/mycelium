@@ -1,4 +1,4 @@
-import { createServer, type Server, type IncomingMessage, type ServerResponse } from 'node:http';
+import { type IncomingMessage, type Server, type ServerResponse, createServer } from 'node:http';
 import type { Adapter, Handler } from '../adapter.js';
 
 export interface HttpAdapterOptions {
@@ -27,7 +27,7 @@ export class HttpAdapter implements Adapter {
 
   async disconnect(): Promise<void> {
     if (!this.server) return;
-    await new Promise<void>((resolve) => this.server!.close(() => resolve()));
+    await new Promise<void>((resolve) => this.server?.close(() => resolve()));
     this.server = null;
     this.handlers.clear();
   }

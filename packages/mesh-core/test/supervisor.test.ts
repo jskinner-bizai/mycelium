@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { Supervisor, type SupervisorEvent } from '../src/supervisor.js';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
