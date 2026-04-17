@@ -1,0 +1,28 @@
+{
+  "name": "@mycelium/core",
+  "version": "0.0.0",
+  "description": "Event bus, supervisor, and adapter primitives for mycelium.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./adapters/noop": "./dist/adapters/noop.js",
+    "./adapters/mqtt": "./dist/adapters/mqtt.js",
+    "./adapters/http": "./dist/adapters/http.js"
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "mqtt": "5.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.16.10",
+    "vitest": "2.1.2"
+  }
+}
